@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grid Input</title>
+    <link href = "style.css" rel = "stylesheet"/>
+    <style>
+        input {
+            width: 30px;
+            height: 30px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <h1>Sudoku Solver</h1>
+    <table>
+        <tbody id="grid">
+        </tbody>
+    </table>
+    <div id="buttons">
+        <button class="btn" onclick="getInput()">UPLOAD</button>
+        <button class="btn" onclick="drawsudoku()">VIEW SOLUTION</button>
+    </div>
+
+    <script src = "script.js"></script>
+</body>
+</html>
