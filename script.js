@@ -17,48 +17,62 @@ function createGrid() {
     }
 }
 
-createGrid();
 
 function getInput() {
     const rows = document.querySelectorAll('#grid tr');
-    rows.forEach(row => {
-        const cells = row.querySelectorAll('td input');
-        const rowValues = [];
-        cells.forEach(cell => {
-            // if(parseInt(cell.value))
-            //     rowValues.push(parseInt(cell.value));
-            // else
-            //     rowValues.push(0);
-
-            const value = parseInt(cell.value);
-            rowValues.push(isNaN(value) ? 0 : value);
-        });
-        sudoku.push(rowValues);
-    });
-    // console.log(sudoku); // Here, you can use 'sudoku' in your JavaScript code
+    
+    for (let i = 0; i < rows.length; i++) {
+        let cells = rows[i].querySelectorAll('td input');
+        let rowValues = [];
+        
+        for (let j = 0; j < cells.length; j++) {
+            let value = parseInt(cells[j].value);
+            rowValues[j] = isNaN(value) ? 0 : value;
+        }
+        
+        sudoku[i] = rowValues;
+    }
 }
 
 
 function isSafe(row, col, val, sudoku, n) {
     for (let i = 0; i < n; i++) {
-        if (sudoku[row][i] === val) return false;
-        
-        if (sudoku[i][col] === val) return false;
-        
-        if (sudoku[Math.floor(row / 3) * 3 + Math.floor(i / 3)][Math.floor(col / 3) * 3 + i % 3] === val) return false;
+        if (sudoku[row][i] == val) 
+            return false;
+    
+        if (sudoku[i][col] == val) 
+            return false;
+
+        if (sudoku[Math.floor(3 * Math.floor(row / 3)) + Math.floor(i / 3)][Math.floor(3 * Math.floor(col / 3)) + (i % 3)] == val) 
+            return false;
     }
     return true;
 }
 
+
+function isValid(sudoku, n) {
+    for (let i = 0; i < n; i++) {
+        for (let j = 0; j < n; j++) {
+            let temp = sudoku[i][j];
+            if (temp == 0) continue;
+            sudoku[i][j] = 0;
+            if (!isSafe(i, j, temp, sudoku, n) == true) return false;
+            sudoku[i][j] = temp;
+        }
+    }
+    return true;
+}
+
+
 function solve(sudoku, n) {
     for (let i = 0; i < n; i++) {
         for (let j = 0; j < n; j++) {
-            if (sudoku[i][j] === 0) {
+            if (sudoku[i][j] == 0) {
                 for (let val = 1; val <= n; val++) {
-                    if (isSafe(i, j, val, sudoku, n)) {
+                    if (isSafe(i, j, val, sudoku, n) == true) {
                         sudoku[i][j] = val;
                         let possible = solve(sudoku, n);
-                        if (possible) return true;
+                        if(possible == true) return true;   
                         else sudoku[i][j] = 0;
                     }
                 }
@@ -69,33 +83,30 @@ function solve(sudoku, n) {
     return true;
 }
 
-function isValid(sudoku, n) {
-    for (let i = 0; i < n; i++) {
-        for (let j = 0; j < n; j++) {
-            let temp = sudoku[i][j];
-            if (temp === 0) continue;
-            sudoku[i][j] = 0;
-            if (!isSafe(i, j, temp, sudoku, n)) return false;
-            sudoku[i][j] = temp;
-        }
-    }
-    return true;
-}
 
 function drawsudoku() {
-    if (!is_valid){
+    const is_valid = isValid(sudoku, n);
+    if (!is_valid) {
         window.alert("Invalid Sudoku");
         return;
     }
-    for (var row = 0; row < sudoku.length; row++) {
-        for (var col = 0; col < sudoku[row].length; col++) {
-            var cell = document.getElementById("cell" + row + col);
-            cell.value = sudoku[row][col];
+    const check = solve(sudoku, n);
+    if(!check){
+        window.alert("Cannot Solve Sudoku");
+        return;
+    }
+    
+    for (let row = 0; row < 9; row++) {
+        for (let col = 0; col < 9; col++) {
+            let cell_value = document.getElementById("cell" + row + col);
+            cell_value.value = sudoku[row][col];
         }
     }
 }
 
+
 let n=9;
+
 let sudoku = [
     [0, 0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -108,10 +119,4 @@ let sudoku = [
     [0, 0, 0, 0, 0, 0, 0, 0, 0],
 ];
 
-let is_valid = isValid(sudoku, n);
-if (!is_valid) console.log("Invalid Sudoku");
-
-let check = solve(sudoku, n);
-if(!check) console.log("Invalid Sudoku");
-
-
+createGrid();
