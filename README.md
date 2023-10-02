@@ -13,3 +13,5 @@ Alogorithm has been uploaded in 3 programming languages-
 1. script.js for code in javaScript
 2. sudoku.cpp for code in c++
 3. sudokuSolve.py for code in python
+
+Note that codes in c++ and python are only for reference and not for linking with the webpage
