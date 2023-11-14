@@ -38,7 +38,7 @@ This web page allows users to input a Sudoku puzzle and view the solved solution
 
 ## Future Goals
 
--(`contour.ipynb`) contains trained model for converting image of sudoku grid to 2-D array.
+- (`contour.ipynb`) contains trained model for converting image of sudoku grid to 2-D array.
 - credits - Rishabh Shrival.
 
 ## Important Note
