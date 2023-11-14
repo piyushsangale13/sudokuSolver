@@ -36,6 +36,11 @@ This web page allows users to input a Sudoku puzzle and view the solved solution
 
 - The Python file (`sudokuSolve.py`) contains the Sudoku solving algorithm implemented in Python. Like the C++ file, it is a reference for understanding the algorithm in Python and is not meant for linking with the webpage.
 
+## Future Goals
+
+-(`contour.ipynb`) contains trained model for converting image of sudoku grid to 2-D array.
+- credits - Rishabh Shrival.
+
 ## Important Note
 
 - The C++ and Python files are provided as reference implementations of the Sudoku solving algorithm. They are not meant to be integrated with the web page directly.
